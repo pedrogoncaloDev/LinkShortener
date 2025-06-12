@@ -1,54 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-</head>
-<body>
-    <button onclick="toggleTheme()" class="btn btn-secondary mt-2 mr-2" style="position: absolute; top: 0; right: 0;">
-        <i class="fas fa-moon"></i> Alternar Tema
-    </button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Encurtador de Links</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="index.css" />
+        <script src="index.js"></script>
+    </head>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header" style="border-radius: 10px 10px 0 0;">
-                        <h4><i class="fas fa-calculator fa-icon"></i>Título</h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="quoting"><i class="fas fa-dollar-sign fa-icon"></i>Quoting</label>
-                                <input type="number" class="form-control" id="quoting" placeholder="0">
+    <body>
+        <!-- <button onclick="toggleTheme()" class="btn btn-secondary mt-2 mr-2" style="position: absolute; top: 0; right: 0;">
+            <i class="fas fa-moon"></i> Alternar Tema
+        </button> -->
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-link"></i> Encurtador de Links</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="shortenerForm">
+                                <div class="form-group">
+                                    <label for="originalLink"><i class="fas fa-link"></i> Insira o Link</label>
+                                    <input type="url" class="form-control" id="originalLink"
+                                        placeholder="https://exemplo.com" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cut"></i> Encurtar
+                                </button>
+                            </form>
+                            <div class="form-group mt-4">
+                                <label for="shortenedLink"><i class="fas fa-copy"></i> Link Encurtado</label>
+                                <input type="text" class="form-control" id="shortenedLink" readonly />
+                                <button class="btn btn-secondary mt-2" onclick="copyToClipboard()">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="amountUser"><i class="fas fa-user fa-icon"></i>Amount User</label>
-                                <input type="number" class="form-control" id="amountUser" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="totalAmountUSD"><i class="fas fa-coins fa-icon"></i>Total Amount USD</label>
-                                <input type="number" class="form-control" id="totalAmountUSD" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="totalAmountBRL"><i class="fas fa-wallet fa-icon"></i>Total Amount BRL</label>
-                                <input type="number" class="form-control" id="totalAmountBRL" placeholder="0">
-                            </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Enviar</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
 </html>
