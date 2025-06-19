@@ -1,2 +1,3 @@
 back_end/.venv
 back_end/database.ini
+back_end/__pycache__
