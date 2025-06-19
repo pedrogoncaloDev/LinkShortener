@@ -1,0 +1,13 @@
+# Criando ambiente virtual
+python -m venv venv
+
+# Ativando ambiente virtual
+Linux -> source venv/bin/activate
+Windows -> .venv\Scripts\activate
+
+# Criando o arquivo requirements.txt
+pip freeze > requirements.txt
+
+# Instalando dependências do arquivo requirements.txt
+pip install -r requirements.txt
+
