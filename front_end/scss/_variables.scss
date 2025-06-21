@@ -1,0 +1,26 @@
+// Variáveis modo escuro
+$bg-dark: linear-gradient(135deg, #1e1e2f, #2d2d44);
+$card-bg-dark: #43435c;
+$card-header-bg-dark: linear-gradient(135deg, #1d11cb, #2575fc);
+$text-color-dark: #f5f5f5;
+$input-bg-dark: #555575;
+$input-border-dark: #666;
+$input-focus-border-dark: #11c5cb;
+$input-focus-shadow-dark: rgba(17, 197, 203, 0.3);
+$btn-bg-dark: linear-gradient(135deg, #1d11cb, #2575fc);
+$btn-hover-shadow-dark: rgba(17, 197, 203, 0.3);
+$icon-color: #11c5cb;
+$placeholder-color-dark: #f5f5f5;
+
+// Variáveis modo claro
+$bg-light: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+$card-bg-light: #ffffff;
+$card-header-bg-light: linear-gradient(135deg, #111dcb, #2575fc);
+$text-color-light: #333;
+$input-bg-light: #f9f9f9;
+$input-border-light: #ddd;
+$input-focus-border-light: #111dcb;
+$input-focus-shadow-light: rgba(2, 18, 247, 0.3);
+$btn-bg-light: linear-gradient(135deg, #111dcb, #2575fc);
+$btn-hover-shadow-light: rgba(2, 18, 247, 0.3);
+$placeholder-color-light: #999;

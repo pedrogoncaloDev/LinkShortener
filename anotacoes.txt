@@ -11,3 +11,6 @@ pip freeze > requirements.txt
 # Instalando dependências do arquivo requirements.txt
 pip install -r requirements.txt
 
+# SCSS
+sass --watch scss/admin.scss:css/admin.css
+sass --watch scss/index.scss:css/index.css
