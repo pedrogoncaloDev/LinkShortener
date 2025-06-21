@@ -1,0 +1,56 @@
+/* Scroll vertical na tabela e limite de altura máxima */
+html, body {
+    height: 100%;
+}
+body {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+}
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+.card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+.table-responsive {
+    flex: 1 1 auto;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table thead {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--card-header-bg);
+    color: #fff;
+}
+.table tbody {
+    display: block;
+    width: 100%;
+}
+.table th, .table td {
+    min-width: 140px;
+    max-width: 300px;
+    width: 16.6%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
+}

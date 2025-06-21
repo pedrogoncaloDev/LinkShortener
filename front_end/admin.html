@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Administração de Links</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="css/admin.css" />
+        <script src="js/admin.js" defer></script>
+    </head>
+    <body>
+        
+        <div class="container mt-5">
+            <button onclick="toggleTheme()" class="btn btn-secondary mt-2 mr-2" style="position: absolute; top: 0; right: 0;">
+                <i class="fas fa-moon"></i> Alternar Tema
+            </button>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-cog"></i> Administração de Links</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-row align-items-end mb-4" id="expireTimeForm">
+                                <div class="form-group col-md-6">
+                                    <label for="expireTime" class="mb-1"><i class="fas fa-clock"></i> Tempo para expirar os links</label>
+                                    <input type="datetime-local" class="form-control" id="expireTime" required />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-save"></i> Alterar
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>URL Original</th>
+                                            <th>Código Encurtado</th>
+                                            <th>Data Criação</th>
+                                            <th>Data Expiração</th>
+                                            <th>Total Acessos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="linksTableBody">
+                                        <!-- Linhas da tabela serão inseridas via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            // Dados de exemplo em JSON
+            const linksData = [
+                {id: 1, url_original: 'https://www.google.com', codigo_encurtado: 'abc123', data_criacao: '2024-06-01 10:00', data_expiracao: '2024-07-01 10:00', total_acessos: 120},
+                {id: 2, url_original: 'https://www.github.com', codigo_encurtado: 'def456', data_criacao: '2024-06-02 11:00', data_expiracao: '2024-07-02 11:00', total_acessos: 98},
+                {id: 3, url_original: 'https://www.microsoft.com', codigo_encurtado: 'ghi789', data_criacao: '2024-06-03 12:00', data_expiracao: '2024-07-03 12:00', total_acessos: 45},
+                {id: 4, url_original: 'https://www.stackoverflow.com', codigo_encurtado: 'jkl012', data_criacao: '2024-06-04 13:00', data_expiracao: '2024-07-04 13:00', total_acessos: 200},
+                {id: 5, url_original: 'https://www.reddit.com', codigo_encurtado: 'mno345', data_criacao: '2024-06-05 14:00', data_expiracao: '2024-07-05 14:00', total_acessos: 67},
+                {id: 6, url_original: 'https://www.youtube.com', codigo_encurtado: 'pqr678', data_criacao: '2024-06-06 15:00', data_expiracao: '2024-07-06 15:00', total_acessos: 300},
+                {id: 7, url_original: 'https://www.facebook.com', codigo_encurtado: 'stu901', data_criacao: '2024-06-07 16:00', data_expiracao: '2024-07-07 16:00', total_acessos: 150},
+                {id: 8, url_original: 'https://www.twitter.com', codigo_encurtado: 'vwx234', data_criacao: '2024-06-08 17:00', data_expiracao: '2024-07-08 17:00', total_acessos: 80},
+                {id: 9, url_original: 'https://www.instagram.com', codigo_encurtado: 'yz1234', data_criacao: '2024-06-09 18:00', data_expiracao: '2024-07-09 18:00', total_acessos: 210},
+                {id: 10, url_original: 'https://www.linkedin.com', codigo_encurtado: 'abc567', data_criacao: '2024-06-10 19:00', data_expiracao: '2024-07-10 19:00', total_acessos: 99},
+                {id: 11, url_original: 'https://www.twitch.tv', codigo_encurtado: 'def890', data_criacao: '2024-06-11 20:00', data_expiracao: '2024-07-11 20:00', total_acessos: 55},
+                {id: 12, url_original: 'https://www.netflix.com', codigo_encurtado: 'ghi123', data_criacao: '2024-06-12 21:00', data_expiracao: '2024-07-12 21:00', total_acessos: 175},
+                {id: 13, url_original: 'https://www.amazon.com', codigo_encurtado: 'jkl456', data_criacao: '2024-06-13 22:00', data_expiracao: '2024-07-13 22:00', total_acessos: 134},
+                {id: 14, url_original: 'https://www.uol.com.br', codigo_encurtado: 'mno789', data_criacao: '2024-06-14 23:00', data_expiracao: '2024-07-14 23:00', total_acessos: 60},
+                {id: 15, url_original: 'https://www.globo.com', codigo_encurtado: 'pqr012', data_criacao: '2024-06-15 09:00', data_expiracao: '2024-07-15 09:00', total_acessos: 88},
+                {id: 16, url_original: 'https://www.mercadolivre.com.br', codigo_encurtado: 'stu345', data_criacao: '2024-06-16 08:00', data_expiracao: '2024-07-16 08:00', total_acessos: 110},
+                {id: 17, url_original: 'https://www.terra.com.br', codigo_encurtado: 'vwx678', data_criacao: '2024-06-17 07:00', data_expiracao: '2024-07-17 07:00', total_acessos: 77},
+                {id: 18, url_original: 'https://www.bbc.com', codigo_encurtado: 'yz9012', data_criacao: '2024-06-18 06:00', data_expiracao: '2024-07-18 06:00', total_acessos: 44},
+                {id: 19, url_original: 'https://www.cnn.com', codigo_encurtado: 'abc890', data_criacao: '2024-06-19 05:00', data_expiracao: '2024-07-19 05:00', total_acessos: 66},
+                {id: 20, url_original: 'https://www.nytimes.com', codigo_encurtado: 'def123', data_criacao: '2024-06-20 04:00', data_expiracao: '2024-07-20 04:00', total_acessos: 101}
+            ];
+
+            const tbody = document.getElementById('linksTableBody');
+            linksData.forEach(link => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${link.id}</td>
+                    <td>${link.url_original}</td>
+                    <td>${link.codigo_encurtado}</td>
+                    <td>${link.data_criacao}</td>
+                    <td>${link.data_expiracao}</td>
+                    <td>${link.total_acessos}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        </script>
+    </body>
+</html>
