@@ -2,9 +2,18 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from database import create_database, create_table_links
 from link_shortener import LinkShortener
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 link = LinkShortener()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class LinkInput(BaseModel):
     url: str
@@ -18,8 +27,11 @@ def startup_event():
 
 @app.post("/shorten")
 def shorten_link(dados: LinkInput):
+    if dados.url == "" or dados.url is None:
+        raise HTTPException(status_code=400, detail="URL não pode ser vazia")
+
     codigo = link.shorten(dados.url)
-    return {"shortened_link": f"http://localhost:8000/{codigo}"}
+    return {"shortened_url": f"http://localhost:8000/{codigo}"}
 
 @app.get("/{codigo}")
 def redirecionar(codigo: str):
