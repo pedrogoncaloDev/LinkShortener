@@ -16,10 +16,10 @@ def startup_event():
     create_database()
     create_table_links()
 
-@app.post("/encurtar")
-def encurtar_link(dados: LinkInput):
+@app.post("/shorten")
+def shorten_link(dados: LinkInput):
     codigo = link.shorten(dados.url)
-    return {"encurtado": f"http://localhost:8000/{codigo}"}
+    return {"shortened_link": f"http://localhost:8000/{codigo}"}
 
 @app.get("/{codigo}")
 def redirecionar(codigo: str):
