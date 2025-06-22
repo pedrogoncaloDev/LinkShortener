@@ -1,4 +1,4 @@
-@import "variables";
+@import "_variables";
 
 html,
 body {
@@ -49,18 +49,25 @@ body {
             font-size: 24px;
         }
     }
+
     .card-body {
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;
+        color: $text-color-dark;
     }
 }
 
 [data-theme="light"] {
     .card {
         background: $card-bg-light;
+
         .card-header {
             background: $card-header-bg-light;
+        }
+
+        .card-body {
+            color: $text-color-light;
         }
     }
 }
