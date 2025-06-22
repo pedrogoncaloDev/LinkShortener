@@ -13,4 +13,7 @@ pip install -r requirements.txt
 
 # SCSS
 sass --watch scss/admin.scss:css/admin.css
+npx sass --watch scss/admin.scss css/admin.css
+
 sass --watch scss/index.scss:css/index.css
+npx sass --watch scss/index.scss:css/index.css
