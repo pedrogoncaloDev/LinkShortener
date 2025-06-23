@@ -3,6 +3,11 @@ from pydantic import BaseModel
 from database import create_database, create_table_links
 from link_shortener import LinkShortener
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+import os
+
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://127.0.0.1:5500/front_end/index.html")
+
 
 app = FastAPI()
 link = LinkShortener()
@@ -31,15 +36,24 @@ def shorten_link(dados: LinkInput):
         raise HTTPException(status_code=400, detail="URL não pode ser vazia")
 
     codigo = link.shorten(dados.url)
-    return {"shortened_url": f"http://localhost:8000/{codigo}"}
+    return {"shortened_url": f"{FRONTEND_URL}/{codigo}"}
+
+# @app.get("/{codigo}")
+# def redirecionar(codigo: str):
+#     try:
+#         url = link.get_original_url(codigo)
+#         return {"url_original": url}
+#     except KeyError:
+#         raise HTTPException(status_code=404, detail="Link não encontrado")
 
 @app.get("/{codigo}")
 def redirecionar(codigo: str):
     try:
         url = link.get_original_url(codigo)
-        return {"url_original": url}
+        return RedirectResponse(url)
     except KeyError:
-        raise HTTPException(status_code=404, detail="Link não encontrado")
+        # Redireciona para o front-end com o código na query string
+        return RedirectResponse(f"http://127.0.0.1:5500/front_end/index.html?codigo={codigo}")
 
 if __name__ == "__main__":
     import uvicorn

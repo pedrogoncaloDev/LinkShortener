@@ -38,5 +38,26 @@ function shortenLink(event) {
     });
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname.replace('/', '');
+
+    console.log(`Current path: ${path}`);
+
+    if (path) {
+        fetch(`${API_URL}/${path}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.url_original) {
+                    document.getElementById('originalLink').value = data.url_original;
+                } else if (data.detail) {
+                    console.error(data.detail);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+});
+
 window.toggleTheme = toggleTheme;
 window.shortenLink = shortenLink;
