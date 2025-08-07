@@ -1,9 +1,13 @@
+---------------- venv -------------------------
+
 # Criando ambiente virtual
 python -m venv venv
 
 # Ativando ambiente virtual
-Linux -> source .venv/bin/activate
-Windows -> .venv\Scripts\activate
+Linux -> source venv/bin/activate
+Windows -> venv\Scripts\activate
+
+---------------- requirements.txt -------------------------
 
 # Criando o arquivo requirements.txt
 pip freeze > requirements.txt
@@ -11,9 +15,13 @@ pip freeze > requirements.txt
 # Instalando dependências do arquivo requirements.txt
 pip install -r requirements.txt
 
-# SCSS
-sass --watch scss/admin.scss:css/admin.css
+---------------- main.py -------------------------
+# Rodar o arquivo main.py 
+python main.py
+
+---------------- SCSS -------------------------
+# sass --watch scss/admin.scss:css/admin.css
 npx sass --watch scss/admin.scss css/admin.css
 
-sass --watch scss/index.scss:css/index.css
+# sass --watch scss/index.scss:css/index.css
 npx sass --watch scss/index.scss:css/index.css
