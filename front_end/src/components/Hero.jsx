@@ -2,12 +2,23 @@ import { useState } from 'react'
 
 export default function Hero({ onShorten }) {
   const [url, setUrl] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(null)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!url.trim()) return
-    onShorten(url.trim())
-    setUrl('')
+    if (!url.trim() || isSubmitting) return
+
+    setIsSubmitting(true)
+    setError(null)
+    try {
+      await onShorten(url.trim())
+      setUrl('')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -33,10 +44,12 @@ export default function Hero({ onShorten }) {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <button type="submit" className="btn-primary">
-            Encurtar →
+          <button type="submit" className="btn-primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Encurtando...' : 'Encurtar →'}
           </button>
         </form>
+
+        {error && <p className="form-error">{error}</p>}
 
         <div className="fine-print">
           <span>

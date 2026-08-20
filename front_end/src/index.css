@@ -194,6 +194,16 @@ h1 span {
   background: #4fe0a0;
   box-shadow: 0 0 24px var(--mint-glow);
 }
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.form-error {
+  margin-top: 12px;
+  color: #ff6b6b;
+  font-size: 13.5px;
+}
 .fine-print {
   margin-top: 14px;
   font-size: 13px;

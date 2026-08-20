@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import RedirectResponse
 
-from config import FRONTEND_URL
+from config import BACKEND_URL, FRONTEND_URL
 from repositories.link_repository import LinkRepository
 from schemas import LinkInput
 from services.link_service import LinkService
@@ -16,7 +16,7 @@ def shorten_link(dados: LinkInput):
         raise HTTPException(status_code=400, detail="URL não pode ser vazia")
 
     codigo = link_service.shorten(dados.url)
-    return {"shortened_url": f"{FRONTEND_URL}/{codigo}"}
+    return {"shortened_url": f"{BACKEND_URL}/{codigo}"}
 
 
 @router.get("/{codigo}")

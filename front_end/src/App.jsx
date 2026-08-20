@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
-import StatsStrip from './components/StatsStrip.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
 import Features from './components/Features.jsx'
 import LinksTable from './components/LinksTable.jsx'
 import Footer from './components/Footer.jsx'
+import { shortenUrl } from './api.js'
 
 const INITIAL_LINKS = [
   {
@@ -28,28 +28,25 @@ const INITIAL_LINKS = [
   },
 ]
 
-function generateCode(length = 5) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let code = ''
-  for (let i = 0; i < length; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)]
-  }
-  return code
-}
-
 function truncate(str, max = 60) {
   return str.length > max ? str.slice(0, max) + '…' : str
+}
+
+function stripProtocol(str) {
+  return str.replace(/^https?:\/\/(www\.)?/, '')
 }
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('encurtar')
   const [links, setLinks] = useState(INITIAL_LINKS)
 
-  const handleShorten = (originalUrl) => {
-    const cleaned = originalUrl.replace(/^https?:\/\/(www\.)?/, '')
+  const handleShorten = async (originalUrl) => {
+    const { shortened_url: shortUrl } = await shortenUrl(originalUrl)
+
     const newLink = {
-      short: `lnk.sh/${generateCode()}`,
-      original: truncate(cleaned),
+      short: stripProtocol(shortUrl),
+      shortUrl,
+      original: truncate(stripProtocol(originalUrl)),
       clicks: '0',
       date: new Date().toLocaleDateString('pt-BR', {
         day: '2-digit',
@@ -64,7 +61,6 @@ export default function App() {
     <>
       <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
       <Hero onShorten={handleShorten} />
-      <StatsStrip />
       <HowItWorks />
       <Features />
       <LinksTable links={links} />
