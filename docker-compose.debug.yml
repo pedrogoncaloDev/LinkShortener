@@ -1,6 +1,9 @@
+# Sempre combine com o arquivo base:
+#   docker compose -f docker-compose.yml -f docker-compose.debug.yml up
+# Rodar este arquivo sozinho falha (backend não tem build/image aqui).
 services:
   backend:
-    command: python debug_entrypoint.py
+    command: sh -c "alembic upgrade head && python -X frozen_modules=off debug_entrypoint.py"
     ports:
       - "8000:8000"
       - "5678:5678"

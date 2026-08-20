@@ -6,7 +6,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: link_shortener
     ports:
+      # 5434 no host para não colidir com um Postgres local já instalado na 5432/5433
       - "5434:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
