@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: Debug local",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/back_end/main.py",
+      "cwd": "${workspaceFolder}/back_end",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Backend: Attach ao Docker",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/back_end",
+          "remoteRoot": "/app"
+        }
+      ],
+      "justMyCode": true,
+      "preLaunchTask": "docker-compose: up (debug)"
+    },
+    {
+      "name": "Frontend: Debug (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}/front_end/src"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full stack: Attach Docker + Frontend",
+      "configurations": ["Backend: Attach ao Docker", "Frontend: Debug (Chrome)"]
+    }
+  ]
+}

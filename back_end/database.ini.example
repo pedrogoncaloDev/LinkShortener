@@ -1,0 +1,19 @@
+; Copie este arquivo para database.ini (gitignored) e ajuste se necessário.
+; Usado quando o back-end roda FORA do Docker (ex: debug local no VS Code),
+; conectando ao Postgres pela porta publicada em localhost:5434.
+; Porta 5434 (e não 5432) de propósito: evita colisão com um Postgres nativo
+; que já esteja rodando na 5432 da sua máquina.
+
+[postgres]
+host = localhost
+port = 5434
+dbname = postgres
+user = postgres
+password = postgres
+
+[link_shortener]
+host = localhost
+port = 5434
+dbname = link_shortener
+user = postgres
+password = postgres

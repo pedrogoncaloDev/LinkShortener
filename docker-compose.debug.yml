@@ -1,0 +1,8 @@
+services:
+  backend:
+    command: python debug_entrypoint.py
+    ports:
+      - "8000:8000"
+      - "5678:5678"
+    environment:
+      DEBUG_WAIT_FOR_CLIENT: "false"

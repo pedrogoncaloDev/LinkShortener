@@ -1,13 +1,10 @@
-import os
-
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import RedirectResponse
 
+from config import FRONTEND_URL
 from repositories.link_repository import LinkRepository
 from schemas import LinkInput
 from services.link_service import LinkService
-
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://127.0.0.1:5500/front_end/index.html")
 
 router = APIRouter()
 link_service = LinkService(LinkRepository())
@@ -27,5 +24,5 @@ def redirecionar(codigo: str):
     url = link_service.resolve(codigo)
     if url is None:
         # Redireciona para o front-end com o código na query string
-        return RedirectResponse(f"http://127.0.0.1:5500/front_end/index.html?codigo={codigo}")
+        return RedirectResponse(f"{FRONTEND_URL}?codigo={codigo}")
     return RedirectResponse(url)
