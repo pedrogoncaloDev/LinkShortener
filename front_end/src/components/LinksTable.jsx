@@ -1,6 +1,6 @@
 export default function LinksTable({ links }) {
-  const handleCopy = (short) => {
-    navigator.clipboard?.writeText(`https://${short}`)
+  const handleCopy = (link) => {
+    navigator.clipboard?.writeText(link.shortUrl || `https://${link.short}`)
   }
 
   return (
@@ -26,13 +26,21 @@ export default function LinksTable({ links }) {
 
         {links.map((link) => (
           <div className="row" key={link.short}>
-            <div className="short">{link.short}</div>
+            <div className="short">
+              {link.shortUrl ? (
+                <a href={link.shortUrl} target="_blank" rel="noreferrer">
+                  {link.short}
+                </a>
+              ) : (
+                link.short
+              )}
+            </div>
             <div className="original">{link.original}</div>
             <div className="clicks">{link.clicks}</div>
             <div className="date">{link.date}</div>
             <div
               className="copy-btn"
-              onClick={() => handleCopy(link.short)}
+              onClick={() => handleCopy(link)}
               title="Copiar link"
             >
               ⧉
